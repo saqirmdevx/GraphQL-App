@@ -1,0 +1,1 @@
+GraphQL on Apollo Server + Prisma - TestDB MYSQL connection.
