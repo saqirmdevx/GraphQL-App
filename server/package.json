@@ -1,8 +1,9 @@
 {
   "dependencies": {
     "apollo-server": "^3.6.3",
+    "apollo-server-express": "^3.6.3",
+    "express": "^4.17.3",
     "graphql": "^16.3.0",
-    "graphql-tools": "^8.2.0",
     "nodemon": "^2.0.15"
   },
   "name": "graphql-app",
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/saqirmdevx/GraphQL-App/issues"
   },
-  "homepage": "https://github.com/saqirmdevx/GraphQL-App#readme"
+  "homepage": "https://github.com/saqirmdevx/GraphQL-App#readme",
+  "devDependencies": {
+    "@types/lru-cache": "^7.4.0"
+  }
 }
