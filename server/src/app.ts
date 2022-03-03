@@ -1,10 +1,10 @@
-import { ApolloServer } from "apollo-server-express";
-import express from "express";
-import generateData from "./misc/tempData";
+import { ApolloServer } from "apollo-server";
 import { GraphQLSchema } from "graphql";
 import { MutationSchema, QuerySchema } from "./schema";
+import { loadData } from "./database/db";
+import generateData, { articles, users } from "./misc/tempData";
 
-const app = express();
+const GENERATE = 0; // Number of new rows of article and Users
 
 const apolloServer = new ApolloServer({
     schema: new GraphQLSchema({
@@ -14,18 +14,18 @@ const apolloServer = new ApolloServer({
     }),
 });
 
-app.get("/", (req, res) => {
-    res.send("Anything");
-})
-
 const start = async () => {
-    generateData();
-    await apolloServer.start();
-    apolloServer.applyMiddleware({ app });
-    app.listen({ port: 4000 }, () => {
-        console.log("Server is running");
-        console.log(`gql path is ${apolloServer.graphqlPath}`);
-    });
+    await loadData();
+
+    if (GENERATE > 0)
+        await generateData(GENERATE); // Generate 10 Articles and Users
+
+    await apolloServer.listen(4000);
+
+    console.log("Server is running");
+    console.log(`gql path is ${apolloServer.graphqlPath}`);
+
+    console.log(`We loaded: ${articles.length} articles and ${users.length} users`);
 }
 
 start();

@@ -1,9 +1,9 @@
+import { Users } from "@prisma/client";
 import { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString, GraphQLInt, GraphQLList } from "graphql";
-import { IUser } from "../../@types";
 import { articles } from "../../misc/tempData";
 import ArticleType from "./ArticleType"
 
-const UserType = new GraphQLObjectType<IUser>({
+const UserType = new GraphQLObjectType<Users>({
     name: "User",
     description: "User registered to write an article.",
     fields: () => ({
