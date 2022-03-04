@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLNonNull } from "graphql";
 import { getAllArticles, getAllUsers, getArticleById, getUserById } from "../database/dataGetters";
-import { addUser, likeUser } from "../database/dataMutation";
+import { addArticle, addUser, likeAllAuthorArticles, likeArticle, likeUser } from "../database/dataMutation";
 import ArticleType from "./types/ArticleType";
 import UserType from "./types/UserType";
 
@@ -59,6 +59,29 @@ const MutationSchema = new GraphQLObjectType({
                 id: { type: new GraphQLNonNull(GraphQLInt)},
             },
             resolve: async (_, args) => await likeUser(args.id)
+        },
+        addArticle: {
+            type: ArticleType,
+            args: {
+                title: { type: new GraphQLNonNull(GraphQLString) },
+                context: { type: new GraphQLNonNull(GraphQLString) },
+                authorId: { type: new GraphQLNonNull(GraphQLInt)}
+            },
+            resolve: async (_, args) => await addArticle(args)
+        },
+        likeArticle: {
+            type: ArticleType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLInt)},
+            },
+            resolve: async (_, args) => await likeArticle(args.id)
+        },
+        likeAllArticlesByAuthor: {
+            type: ArticleType,
+            args: {
+                authorId: { type: new GraphQLNonNull(GraphQLInt)},
+            },
+            resolve: async (_, args) => await likeAllAuthorArticles(args.authorId)
         }
     })
 });
