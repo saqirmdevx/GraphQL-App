@@ -1,6 +1,6 @@
 import { Users } from "@prisma/client";
 import { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString, GraphQLInt, GraphQLList } from "graphql";
-import { articles } from "../../misc/data_generator";
+import { getArticlesByAuthorId } from "../../database/dataGetters";
 import ArticleType from "./ArticleType"
 
 /**
@@ -16,7 +16,7 @@ const UserType = new GraphQLObjectType<Users>({
         likes: {type: new GraphQLNonNull(GraphQLInt) },
         articles: {
             type: new GraphQLList(ArticleType),
-            resolve: (parent) => articles.filter(article => article.authorId === parent.id),
+            resolve: (parent) => getArticlesByAuthorId(parent.id)
         }
     })
 })

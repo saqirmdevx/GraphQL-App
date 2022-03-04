@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLNonNull } from "graphql";
-import { addUser, likeUser } from "../database/mutateData";
-import { users, articles } from "../misc/data_generator";
+import { getAllArticles, getAllUsers, getArticleById, getUserById } from "../database/dataGetters";
+import { addUser, likeUser } from "../database/dataMutation";
 import ArticleType from "./types/ArticleType";
 import UserType from "./types/UserType";
 
@@ -14,12 +14,12 @@ const QuerySchema = new GraphQLObjectType({
         users: {
             type: new GraphQLList(UserType),
             description: "get all users",
-            resolve: () => users
+            resolve: async () => await getAllUsers()
         },
         articles: {
             type: new GraphQLList(ArticleType),
             description: "Get all articles",
-            resolve: () => articles
+            resolve: async () => await getAllArticles()
         },
         user: {
             type: UserType,
@@ -27,7 +27,7 @@ const QuerySchema = new GraphQLObjectType({
             args: {
                 id: {type: GraphQLInt }
             },
-            resolve: (_, args) => users.find(user => user.id === args.id),
+            resolve: async (_, args) => await getUserById(args.id)
         },
         article: {
             type: ArticleType,
@@ -35,7 +35,7 @@ const QuerySchema = new GraphQLObjectType({
             args: {
                 id: {type: GraphQLInt }
             },
-            resolve: (_, args) => articles.find(article => article.id === args.id),
+            resolve: async (_, args) => await getArticleById(args.id)
         }
     })
 });
@@ -51,14 +51,14 @@ const MutationSchema = new GraphQLObjectType({
                 name: { type: new GraphQLNonNull(GraphQLString) },
                 age: { type: new GraphQLNonNull(GraphQLInt)}
             },
-            resolve: (parent, args) => addUser(args.name, args.age)
+            resolve: async (_, args) => await addUser(args.name, args.age)
         },
         likeUser: {
             type: UserType,
             args: {
                 id: { type: new GraphQLNonNull(GraphQLInt)},
             },
-            resolve: (parent, args) => likeUser(args.id)
+            resolve: async (_, args) => await likeUser(args.id)
         }
     })
 });

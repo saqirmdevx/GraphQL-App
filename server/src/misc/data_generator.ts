@@ -4,39 +4,35 @@ import { random } from "./misc";
 import { generateText } from "./syllabes";
 import { Articles, PrismaClient, Users } from '@prisma/client'
 
-// This is only for testing purpose
-export const users: Users[] = [];
-export const articles: Articles[] = [];
-
 /**
- * Generate new user with random data.
- * @param newId - Last id of user
- * @returns Return single generated User
+ * Generate new user with random data
+ * @param prisma - Prisma client reference
+ * @returns Users data
  */
-const generateUser = (newId: number): Users => { 
-    const id = newId + 1;
+const generateUser = async (prisma: PrismaClient): Promise<Users> => { 
     const name = generateText();
-
     const age = random(15, 50);
 
-    const result = {id, name, age, likes: 0};
-    return result;
+    const data = {name, age, likes: 0};
+
+    return await prisma.users.create({data});;
 }
 
 /**
- * Generate new article with random data.
- * @param newId - Last id of Articles
- * @returns Return single generated Article
+ * Generate new Article with random data
+ * @param prisma - Prisma client reference
+ * @param AuthorIds - List of AuthorIds, randomly generate index to select author
+ * @returns Article Data
  */
-const generateArticle = (newId: number): Articles => {
-    const id = newId +1;
+const generateArticle = async (prisma: PrismaClient, authorIds: number[]): Promise<Articles> => {
     const title = generateText(4, 8, 16);
     const context = generateText(32, 64, 500, true);
     const curTime = BigInt(Date.now());
-    const authorId = random(1, users.length - 1);
+    const randomIndex = random(1, authorIds.length - 1);
 
-    const result = { id, title, context, authorId, addTime: curTime, likes: 0}
-    return result;
+    const data = { title, context, authorId: authorIds[randomIndex], addTime: curTime, likes: 0}
+
+    return await prisma.articles.create({data});
 }
 
 /**
@@ -44,24 +40,28 @@ const generateArticle = (newId: number): Articles => {
  * @param count - Count of data to be generated
  */
 const generateData = async (count: number) => {
-    const newArticles = [];
-    const newUsers = [];
+    // Initialize prisma client (Connect)
+    const prisma = new PrismaClient();
 
-    for (let i = 0; i < count; i++) {
-        newUsers.push(generateUser(articles.length + newArticles.length));
-        newArticles.push(generateArticle(users.length + newUsers.length));
-    }
-
-    const prisma = new PrismaClient()
+    // Get all user IDS
+    const userIdsQry = await prisma.users.findMany({select: {id: true }})
+    const userIdList = userIdsQry.map(data => data.id);
+    
     try {
-        const allUsers = await prisma.users.createMany({data: newUsers })
-        const allArticles = await prisma.articles.createMany({data: newArticles})
+        for (let i = 0; i < count; i++) {
+            const newUser = await generateUser(prisma);
+            if (!newUser) {
+                console.error("Creating user failed");
+            } else
+                console.log(`New user with name ${newUser.name} and ID: ${newUser.id} has been added`);
 
-        // add them to list
-        articles.push(...newArticles);
-        users.push(...newUsers);
+            const newArticle = await generateArticle(prisma, userIdList);
+            if (!newArticle) {
+                console.error("Creating article failed");
+            } else
+                console.log(`New article with title ${newArticle.title} and ID: ${newArticle.id} has been added`);
+        }
 
-        console.log("Created users: ", allUsers, "Created Articles: ", allArticles);
     } catch (e) {
         throw e;
     } finally {

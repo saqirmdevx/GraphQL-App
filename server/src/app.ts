@@ -1,8 +1,7 @@
 import { ApolloServer } from "apollo-server";
 import { GraphQLSchema } from "graphql";
 import { MutationSchema, QuerySchema } from "./schema";
-import { initData } from "./database/db";
-import generateData, { articles, users } from "./misc/data_generator";
+import generateData from "./misc/data_generator";
 
 const GENERATE = 0; // Number of new rows of article and Users
 
@@ -15,8 +14,6 @@ const apolloServer = new ApolloServer({
 });
 
 const start = async () => {
-    await initData();
-
     if (GENERATE > 0)
         await generateData(GENERATE); // Generate 10 Articles and Users
 
@@ -24,8 +21,6 @@ const start = async () => {
 
     console.log("Server is running");
     console.log(`gql path is ${apolloServer.graphqlPath}`);
-
-    console.log(`We loaded: ${articles.length} articles and ${users.length} users`);
 }
 
 start();
