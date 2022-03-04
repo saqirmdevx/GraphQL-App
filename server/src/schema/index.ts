@@ -1,4 +1,5 @@
-import { GraphQLObjectType, GraphQLList, GraphQLInt } from "graphql";
+import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLNonNull } from "graphql";
+import { addUser } from "../database/mutateData";
 import { users, articles } from "../misc/data_generator";
 import ArticleType from "./types/ArticleType";
 import UserType from "./types/UserType";
@@ -37,8 +38,22 @@ const QuerySchema = new GraphQLObjectType({
             resolve: (_, args) => articles.find(article => article.id === args.id),
         }
     })
-})
+});
 
-const MutationSchema = undefined;
+/** Mutation Schema */
+const MutationSchema = new GraphQLObjectType({
+    name: "Mutation",
+    description: "Mutation query object",
+    fields: () => ({
+        addUser: {
+            type: UserType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                age: { type: new GraphQLNonNull(GraphQLInt)}
+            },
+            resolve: (parent, args) => addUser(args.name, args.age)
+        }
+    })
+});
 
 export { QuerySchema, MutationSchema }
