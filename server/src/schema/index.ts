@@ -1,8 +1,11 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt } from "graphql";
-import { users, articles } from "../misc/tempData";
+import { users, articles } from "../misc/data_generator";
 import ArticleType from "./types/ArticleType";
 import UserType from "./types/UserType";
 
+/**
+ * Main Query schema
+ */
 const QuerySchema = new GraphQLObjectType({
     name: "Query",
     description: "Root query schema",

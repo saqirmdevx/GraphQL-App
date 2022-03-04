@@ -1,8 +1,11 @@
 import { Articles } from "@prisma/client";
 import { GraphQLObjectType, GraphQLNonNull, GraphQLID, GraphQLString, GraphQLInt, GraphQLFloat } from "graphql";
-import { users } from "../../misc/tempData";
+import { users } from "../../misc/data_generator";
 import UserType from "./UserType";
 
+/**
+ * GraphQL Object Type of Articles, This can be replaced with .graphql schemas that generate this.
+ */
 const ArticleType: GraphQLObjectType<Articles> = new GraphQLObjectType({
     name: "Article",
     description: "Article written by a user",
