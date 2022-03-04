@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLNonNull } from "graphql";
-import { addUser } from "../database/mutateData";
+import { addUser, likeUser } from "../database/mutateData";
 import { users, articles } from "../misc/data_generator";
 import ArticleType from "./types/ArticleType";
 import UserType from "./types/UserType";
@@ -52,6 +52,13 @@ const MutationSchema = new GraphQLObjectType({
                 age: { type: new GraphQLNonNull(GraphQLInt)}
             },
             resolve: (parent, args) => addUser(args.name, args.age)
+        },
+        likeUser: {
+            type: UserType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLInt)},
+            },
+            resolve: (parent, args) => likeUser(args.id)
         }
     })
 });

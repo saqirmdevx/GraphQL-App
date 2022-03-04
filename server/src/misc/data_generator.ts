@@ -4,8 +4,7 @@ import { random } from "./misc";
 import { generateText } from "./syllabes";
 import { Articles, PrismaClient, Users } from '@prisma/client'
 
-// Generate 10 Random Articlesa and 10 Random Users //
-
+// This is only for testing purpose
 export const users: Users[] = [];
 export const articles: Articles[] = [];
 
