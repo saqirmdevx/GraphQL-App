@@ -29,6 +29,28 @@ export type ArticleInput = {
   id: Scalars['Int'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  likeArticle: Scalars['Int'];
+  newArticle: Article;
+};
+
+
+export type MutationLikeArticleArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationNewArticleArgs = {
+  input: NewArticleInput;
+};
+
+export type NewArticleInput = {
+  authorId: Scalars['Int'];
+  context: Scalars['String'];
+  title: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   article?: Maybe<Article>;
@@ -134,6 +156,8 @@ export type ResolversTypes = {
   ArticleInput: ArticleInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  NewArticleInput: NewArticleInput;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
@@ -146,6 +170,8 @@ export type ResolversParentTypes = {
   ArticleInput: ArticleInput;
   Boolean: Scalars['Boolean'];
   Int: Scalars['Int'];
+  Mutation: {};
+  NewArticleInput: NewArticleInput;
   Query: {};
   String: Scalars['String'];
   User: User;
@@ -161,6 +187,11 @@ export type ArticleResolvers<ContextType = any, ParentType extends ResolversPare
   likes?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  likeArticle?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<MutationLikeArticleArgs, 'id'>>;
+  newArticle?: Resolver<ResolversTypes['Article'], ParentType, ContextType, RequireFields<MutationNewArticleArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -182,6 +213,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   Article?: ArticleResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

@@ -1,11 +1,12 @@
 type Article {
     id: Int!
+    author: User
+    likes: Int
+    addTime: Int
+
     title: String!
     context: String!
     authorId: Int!
-    likes: Int
-    addTime: Int
-    author: User
 }
 
 input ArticleInput {
@@ -15,4 +16,15 @@ input ArticleInput {
 type Query {
     article(input: ArticleInput!): Article
     articles: [Article]
+}
+
+input NewArticleInput  {
+    title: String!
+    context: String!
+    authorId: Int!
+}
+
+type Mutation {
+    newArticle(input: NewArticleInput!): Article!
+    likeArticle(id: Int!): Article
 }
