@@ -55,6 +55,8 @@ const generateData = async (count: number) => {
             } else
                 console.log(`New user with name ${newUser.name} and ID: ${newUser.id} has been added`);
 
+            userIdList.push(newUser.id);
+
             const newArticle = await generateArticle(prisma, userIdList);
             if (!newArticle) {
                 console.error("Creating article failed");
