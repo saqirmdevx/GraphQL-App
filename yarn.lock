@@ -935,7 +935,7 @@
 
 "@prisma/client@^3.10.0":
   version "3.10.0"
-  resolved "https://registry.npmjs.org/@prisma/client/-/client-3.10.0.tgz"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-3.10.0.tgz#4782fe6f1b0e43c2a11a75ad4bb1098599d1dfb1"
   integrity sha512-6P4sV7WFuODSfSoSEzCH1qfmWMrCUBk1LIIuTbQf6m1LI/IOpLN4lnqGDmgiBGprEzuWobnGLfe9YsXLn0inrg==
   dependencies:
     "@prisma/engines-version" "3.10.0-50.73e60b76d394f8d37d8ebd1f8918c79029f0db86"
@@ -3612,7 +3612,7 @@ prepend-http@^2.0.0:
 
 prisma@^3.10.0:
   version "3.10.0"
-  resolved "https://registry.npmjs.org/prisma/-/prisma-3.10.0.tgz"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-3.10.0.tgz#872d87afbeb1cbcaa77c3d6a63c125e0d704b04d"
   integrity sha512-dAld12vtwdz9Rz01nOjmnXe+vHana5PSog8t0XGgLemKsUVsaupYpr74AHaS3s78SaTS5s2HOghnJF+jn91ZrA==
   dependencies:
     "@prisma/engines" "3.10.0-50.73e60b76d394f8d37d8ebd1f8918c79029f0db86"

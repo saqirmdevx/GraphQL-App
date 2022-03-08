@@ -11,14 +11,14 @@ model Users {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(50)
   likes Int?
-  age   Int 
+  age   Int
 }
 
 model Articles {
-  id    Int    @id @default(autoincrement())
-  title  String @db.Text()
-  context String @db.Text()
-  authorId Int 
-  likes Int?
-  addTime BigInt 
+  id       Int    @id @default(autoincrement())
+  title    String @db.Text
+  context  String @db.Text
+  authorId Int
+  likes    Int?
+  addTime  BigInt
 }
