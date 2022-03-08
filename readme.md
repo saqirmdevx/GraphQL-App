@@ -12,11 +12,21 @@ Stack:
 - `git clone https://github.com/saqirmdevx/GraphQL-App.git`
 
 Install dependencies: 
-- `cd server`
-- `npm i`
+- `cd GraphQL-App`
+- `yarn install`
 
-Build application: 
-- `npm run build`
+Create `.env` file in base folder (You can do also `prisma init`). 
+Setup MYSQL or Postgre Database - Check tutorial on google.
+
+Edit `.env`
+- `DATABASE_URL=mysql://root:admin@localhost:3306/dbname` -- For Mysql
+- `DATABASE_URL=postgresql://test:test@localhost:5432/dbname` -- For Postgre 
+
+Apply prisma application: 
+- `prisma db push`
+
+Generate graphQL Scheme for typescript
+- `yarn generate`
 
 Run application: 
-- `npm run start`
+- `yarn start`
