@@ -1,10 +1,16 @@
 {
   "dependencies": {
+    "@graphql-codegen/core": "^2.5.1",
+    "@graphql-codegen/plugin-helpers": "^2.4.2",
+    "@graphql-codegen/schema-ast": "^2.4.1",
+    "@graphql-tools/load-files": "^6.5.3",
+    "@graphql-tools/schema": "^8.3.2",
     "@prisma/client": "^3.10.0",
     "apollo-server": "^3.6.3",
     "apollo-server-express": "^3.6.3",
     "express": "^4.17.3",
     "graphql": "^16.3.0",
+    "graphql-import-node": "^0.0.4",
     "nodemon": "^2.0.15"
   },
   "name": "graphql-app",
@@ -14,7 +20,8 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w",
-    "start": "nodemon ./build/app.js"
+    "start": "nodemon ./src/app.ts",
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "repository": {
     "type": "git",
@@ -27,7 +34,13 @@
   },
   "homepage": "https://github.com/saqirmdevx/GraphQL-App#readme",
   "devDependencies": {
+    "@graphql-codegen/cli": "2.6.2",
+    "@graphql-codegen/introspection": "2.1.1",
+    "@graphql-codegen/typescript": "2.4.5",
+    "@graphql-codegen/typescript-resolvers": "2.5.2",
     "@types/lru-cache": "^7.4.0",
-    "prisma": "^3.10.0"
+    "prisma": "^3.10.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
   }
 }

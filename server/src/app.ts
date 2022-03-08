@@ -1,16 +1,14 @@
+import 'graphql-import-node';
 import { ApolloServer } from "apollo-server";
-import { GraphQLSchema } from "graphql";
-import { MutationSchema, QuerySchema } from "./schema";
+import { GraphQLContext } from "./utils/requestContext";
 import generateData from "./misc/data_generator";
+import { schema } from "./utils/schema";
 
 const GENERATE = 0; // Number of new rows of article and Users
 
 const apolloServer = new ApolloServer({
-    schema: new GraphQLSchema({
-        query: QuerySchema,
-        mutation: MutationSchema
-
-    }),
+    schema,
+    context: GraphQLContext
 });
 
 const start = async () => {

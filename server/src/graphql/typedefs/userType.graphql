@@ -1,0 +1,17 @@
+type User {
+    id: Int!
+    name: String!
+    avatar: String
+    age: Int!
+    likes: Int
+    articles: [Article]
+}
+
+input UserInput {
+    id: Int!
+}
+
+type Query {
+    user(input: UserInput!): User
+    users: [User]
+}

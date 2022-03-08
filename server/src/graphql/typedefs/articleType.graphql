@@ -1,0 +1,18 @@
+type Article {
+    id: Int!
+    title: String!
+    context: String!
+    authorId: Int!
+    likes: Int
+    addTime: Int
+    author: User
+}
+
+input ArticleInput {
+    id: Int!
+}
+
+type Query {
+    article(input: ArticleInput!): Article
+    articles: [Article]
+}

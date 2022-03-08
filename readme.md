@@ -6,3 +6,15 @@ Stack:
   - GraphQL
   - ApolloServer
   - Prisma
+
+
+## How to install
+
+- Download repositary `git clone https://github.com/saqirmdevx/GraphQL-App.git`
+
+Install dependencies: 
+`cd server`
+`npm i`
+
+Build application: `npm run build`
+Run application: `npm run start`
