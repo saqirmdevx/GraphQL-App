@@ -10,15 +10,15 @@ datasource db {
 model Users {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(50)
-  likes Int?
-  age   Int
+  likes Int @default(0)
+  age   Int @default(0)
 }
 
 model Articles {
   id       Int    @id @default(autoincrement())
   title    String @db.Text
   context  String @db.Text
-  authorId Int
-  likes    Int?
-  addTime  BigInt
+  authorId Int 
+  likes    Int @default(0)
+  addTime  BigInt // We can use default now with datetime
 }
