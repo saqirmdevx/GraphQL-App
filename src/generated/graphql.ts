@@ -31,8 +31,10 @@ export type ArticleInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  likeArticle: Scalars['Int'];
+  likeArticle?: Maybe<Article>;
+  likeUser?: Maybe<User>;
   newArticle: Article;
+  newUser?: Maybe<User>;
 };
 
 
@@ -41,14 +43,30 @@ export type MutationLikeArticleArgs = {
 };
 
 
+export type MutationLikeUserArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationNewArticleArgs = {
   input: NewArticleInput;
+};
+
+
+export type MutationNewUserArgs = {
+  input: NewUserInput;
 };
 
 export type NewArticleInput = {
   authorId: Scalars['Int'];
   context: Scalars['String'];
   title: Scalars['String'];
+};
+
+export type NewUserInput = {
+  age: Scalars['Int'];
+  avatar?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
 };
 
 export type Query = {
@@ -158,6 +176,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   NewArticleInput: NewArticleInput;
+  NewUserInput: NewUserInput;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
@@ -172,6 +191,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   Mutation: {};
   NewArticleInput: NewArticleInput;
+  NewUserInput: NewUserInput;
   Query: {};
   String: Scalars['String'];
   User: User;
@@ -190,8 +210,10 @@ export type ArticleResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  likeArticle?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<MutationLikeArticleArgs, 'id'>>;
+  likeArticle?: Resolver<Maybe<ResolversTypes['Article']>, ParentType, ContextType, RequireFields<MutationLikeArticleArgs, 'id'>>;
+  likeUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationLikeUserArgs, 'id'>>;
   newArticle?: Resolver<ResolversTypes['Article'], ParentType, ContextType, RequireFields<MutationNewArticleArgs, 'input'>>;
+  newUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationNewUserArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

@@ -15,3 +15,14 @@ type Query {
     user(input: UserInput!): User
     users: [User]
 }
+
+input NewUserInput {
+    name: String!
+    avatar: String
+    age: Int!
+}
+
+type Mutation {
+    newUser(input: NewUserInput!): User
+    likeUser(id: Int!): User
+}
